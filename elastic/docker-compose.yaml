@@ -1,8 +1,8 @@
 version: '2'
 services:
-  elasticsearch1:
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
-    container_name: elasticsearch1
+    container_name: elasticsearch
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -18,6 +18,7 @@ services:
       - 9200:9200
     networks:
       - esnet
+
   elasticsearch2:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
     environment:
@@ -34,6 +35,7 @@ services:
       - esdata2:/usr/share/elasticsearch/data
     networks:
       - esnet
+
   logstash:
     image: docker.elastic.co/logstash/logstash:5.4.0
     container_name: logstash
@@ -48,7 +50,22 @@ services:
     networks:
       - esnet
     depends_on:
-      - elasticsearch1
+      - elasticsearch
+      - elasticsearch2
+
+# https://www.elastic.co/guide/en/kibana/current/_configuring_kibana_on_docker.html
+  kibana:
+    image: docker.elastic.co/kibana/kibana:5.4.0
+    container_name: kibana
+    environment:
+      - "LS_JAVA_OPTS=-Xms512m -Xmx512m"
+    mem_limit: 1g
+    ports:
+      - 5601:5601
+    networks:
+      - esnet
+    depends_on:
+      - elasticsearch
       - elasticsearch2
 
 volumes:
