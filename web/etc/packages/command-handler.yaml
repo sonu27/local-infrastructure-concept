@@ -1,0 +1,6 @@
+services:
+  test_handler:
+      class: App\CommandHandler\TestCommandHandler
+      arguments:
+      tags:
+          - { name: tactician.handler, command: App\Command\TestCommand }
