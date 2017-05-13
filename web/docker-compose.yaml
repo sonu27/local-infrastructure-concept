@@ -23,10 +23,11 @@ services:
       - mysql
     volumes:
       - .:/var/www/html
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "tcp://127.0.0.1:5000"
+    # logging:
+    #   driver: syslog
+    #   options:
+    #     syslog-address: "tcp://127.0.0.1:5000"
+    #     tag: "php-fpm"
 
   mysql:
     image: mysql
