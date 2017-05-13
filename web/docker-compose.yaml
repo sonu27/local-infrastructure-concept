@@ -3,6 +3,7 @@ version: "3"
 services:
   nginx:
     build: ./docker/nginx
+    container_name: nginx
     links:
       - php
     ports:
@@ -11,8 +12,10 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://127.0.0.1:5000"
+
   php:
     build: ./docker/php
+    container_name: php-fpm
     expose:
       - "9000"
     links:
@@ -26,6 +29,7 @@ services:
 
   mysql:
     image: mysql
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
