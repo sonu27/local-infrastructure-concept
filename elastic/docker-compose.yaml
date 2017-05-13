@@ -1,4 +1,5 @@
-version: '2'
+version: '3'
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
@@ -11,7 +12,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
     volumes:
       - esdata1:/usr/share/elasticsearch/data
     ports:
@@ -31,18 +31,18 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
     volumes:
       - esdata2:/usr/share/elasticsearch/data
     networks:
       - esnet
+    depends_on:
+      - elasticsearch
 
   logstash:
     image: docker.elastic.co/logstash/logstash:5.4.0
     container_name: logstash
     environment:
       - "LS_JAVA_OPTS=-Xms512m -Xmx512m"
-    mem_limit: 1g
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
@@ -52,7 +52,6 @@ services:
       - esnet
     depends_on:
       - elasticsearch
-      - elasticsearch2
 
 # https://www.elastic.co/guide/en/kibana/current/_configuring_kibana_on_docker.html
   kibana:
@@ -60,14 +59,12 @@ services:
     container_name: kibana
     environment:
       - "LS_JAVA_OPTS=-Xms512m -Xmx512m"
-    mem_limit: 1g
     ports:
       - 5601:5601
     networks:
       - esnet
     depends_on:
       - elasticsearch
-      - elasticsearch2
 
 volumes:
   esdata1:
