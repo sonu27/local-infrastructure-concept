@@ -12,6 +12,7 @@ services:
       driver: syslog
       options:
         syslog-address: "tcp://127.0.0.1:5000"
+        tag: "nginx"
 
   php:
     build: ./docker/php
