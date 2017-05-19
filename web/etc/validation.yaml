@@ -1,0 +1,4 @@
+App\Command\TestValidatorMiddlewareCommand:
+    properties:
+        test:
+            - NotBlank: ~

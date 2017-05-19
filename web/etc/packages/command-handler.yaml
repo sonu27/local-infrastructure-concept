@@ -1,6 +1,11 @@
 services:
-  test_handler:
-      class: App\CommandHandler\TestCommandHandler
-      arguments:
-      tags:
-          - { name: tactician.handler, command: App\Command\TestCommand }
+    test_handler:
+        class: App\CommandHandler\TestCommandHandler
+        arguments:
+        tags:
+            - { name: tactician.handler, command: App\Command\TestCommand }
+    test_validator_middleware_handler:
+        class: App\CommandHandler\TestValidatorMiddlewareCommandHandler
+        arguments:
+        tags:
+            - { name: tactician.handler, command: App\Command\TestValidatorMiddlewareCommand }

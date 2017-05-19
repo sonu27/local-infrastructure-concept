@@ -14,3 +14,9 @@ framework:
         log: true
     router:
         strict_requirements: null
+    validation:
+        enabled: true
+        mapping:
+            paths:
+                - '%kernel.project_dir%/etc/validation.yaml'
+

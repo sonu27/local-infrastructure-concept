@@ -2,6 +2,10 @@ index:
     path: /
     defaults: { _controller: 'App\Controller\DefaultController::indexAction' }
 
+test-validator:
+    path: /test/validator
+    defaults: { _controller: 'App\Controller\TestController::validatorAction' }
+
 # Depends on sensio/framework-extra-bundle:^3.0 and doctrine/annotations
 #controllers:
 #    resource: ../src/Controller/

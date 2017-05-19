@@ -2,4 +2,5 @@ tactician:
     commandbus:
         default:
             middleware:
+                - tactician.middleware.validator
                 - tactician.middleware.command_handler
